@@ -2,6 +2,7 @@ package com.ren.reggie.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    //@JsonFormat(shape = JsonFormat.Shape.STRING)//防止精度丢失
     private Long id;
 
     private String username;
