@@ -29,7 +29,13 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
         //不需要处理的路径
         String[] urls=new String[]{
-                "/employee/login","/employee/logout","/backend/**","/front/**"
+                "/employee/login",
+                "/employee/logout",
+                "/backend/**",
+                "/front/**",
+                "common/**",
+                "/user/sendMsg",
+                "/user/login"
         };
         //判断本次请求是否需要处理
         boolean check = check(urls, requestURI);
@@ -44,6 +50,13 @@ public class LoginCheckFilter implements Filter {
             log.info("用户已登录，id{}",request.getSession().getAttribute("employee"));
             Long eId=(Long)request.getSession().getAttribute("employee");
             BaseContext.setCurrentId(eId);
+            filterChain.doFilter(request,response);
+            return;
+        }
+        if(request.getSession().getAttribute("user")!=null){
+            log.info("用户已登录，id{}",request.getSession().getAttribute("user"));
+            Long userId=(Long)request.getSession().getAttribute("user");
+            BaseContext.setCurrentId(userId);
             filterChain.doFilter(request,response);
             return;
         }
